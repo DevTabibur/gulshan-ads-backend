@@ -2,15 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // ! Custom API error class
 class ApiError extends Error {
-  constructor(statusCode, message, stack = "") {
-    super(message);
-    this.statusCode = statusCode;
-    this.statusCode = statusCode;
-    if (stack) {
-      this.stack = stack;
-    } else {
-      Error.captureStackTrace(this, this.constructor);
+    constructor(statusCode, message, stack = "") {
+        super(message);
+        this.statusCode = statusCode;
+        this.statusCode = statusCode;
+        if (stack) {
+            this.stack = stack;
+        }
+        else {
+            Error.captureStackTrace(this, this.constructor);
+        }
     }
-  }
 }
 exports.default = ApiError;
