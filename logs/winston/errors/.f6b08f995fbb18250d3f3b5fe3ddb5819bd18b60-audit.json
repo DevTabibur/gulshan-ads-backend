@@ -1,0 +1,75 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\.f6b08f995fbb18250d3f3b5fe3ddb5819bd18b60-audit.json",
+    "files": [
+        {
+            "date": 1755612026930,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-19-08-20-error.log",
+            "hash": "559d2810f2e72787479f1f4dca7d90869cff9fa550f7430e9460624b89f46ef5"
+        },
+        {
+            "date": 1755739081170,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-21-08-07-error.log",
+            "hash": "28635cd46f9a8de8b4e240b66bbce4aae8dfc9a32efe23a926a642d32d56d987"
+        },
+        {
+            "date": 1755743043936,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-21-08-08-error.log",
+            "hash": "9e94d3f0f25206a82863f77c7c17a6f909acd31dee645240c2683975e08f824a"
+        },
+        {
+            "date": 1755747221013,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-21-08-09-error.log",
+            "hash": "56107a44e7b116ab9e23a5af89100bfceee134252f507f034c72d5b6ce4818eb"
+        },
+        {
+            "date": 1755925373609,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-11-error.log",
+            "hash": "38a083812c19bb38934bca371442d55ff051d4b31fe6b22c8cf3329d8bfe2666"
+        },
+        {
+            "date": 1755928877520,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-12-error.log",
+            "hash": "a37361e056b7b3dd262154cc767113bb658d67a0a76193135c02cfdbc740f676"
+        },
+        {
+            "date": 1755932853944,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-13-error.log",
+            "hash": "6ba1c62db4b5172646456c721963389c48174b748d9859f69308ef084b937586"
+        },
+        {
+            "date": 1755944929784,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-16-error.log",
+            "hash": "0217b2dcd3edfe6c10189bb6c227ef818c4fb8d96d871da62ac4b87d1444d248"
+        },
+        {
+            "date": 1755947891665,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-17-error.log",
+            "hash": "ef7f949a599cfb2027b7d47b8e19089f9e20969cc2f6a548a59a52f57fe1096e"
+        },
+        {
+            "date": 1755951933208,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-18-error.log",
+            "hash": "9845e1bfb1526102f351c864e9594a65a07654ada77b72e7b9261346b7cc81d5"
+        },
+        {
+            "date": 1755955800785,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-19-error.log",
+            "hash": "3728a449fae7c8b93bee58db1f6e95dccbed8217d7cde0ca97fb16308e2eef7e"
+        },
+        {
+            "date": 1755958121473,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-20-error.log",
+            "hash": "32f688bf2d5f8903617d9b521c9280baadcf46d62eb8247025f6b4d881b242fb"
+        },
+        {
+            "date": 1755961285953,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-23-08-21-error.log",
+            "hash": "957f7c32f129f1712d6ab2d9e624126141142eaf3e21998ed545df91bdf20532"
+        }
+    ],
+    "hashType": "sha256"
+}
