@@ -31,6 +31,7 @@ import { TikTokPartnerSectionRoute } from "../modules/tikTokPartnerSection/tikTo
 import { TikTokClientSaysSectionRoute } from "../modules/tikTokClientSaysSection/tikTokClientSaysSection.routes";
 import { SubscribeSectionRoute } from "../modules/subscribeSection/subscribeSection.routes";
 import { SiteSettingsRoute } from "../modules/siteSettings/siteSettings.routes";
+import { BlogCategoryRoute } from "../modules/blogCategory/blogCategory.routes";
 
 const router = express.Router();
 
@@ -162,6 +163,10 @@ const allRoutes = [
   {
     path: '/site-settings',
     route: SiteSettingsRoute,
+  },
+  {
+    path: '/blog-category',
+    route: BlogCategoryRoute,
   },
 ];
 
