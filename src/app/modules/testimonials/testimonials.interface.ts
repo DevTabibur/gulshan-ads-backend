@@ -1,7 +1,7 @@
 export interface ITestimonial {
-  updatedAt(updatedAt: any): unknown;
-  createdAt(createdAt: any): unknown;
-  private _id(_id: any): unknown;
+  _id: any;
+  updatedAt: any;
+  createdAt: any;
   authorUrl: string;
   fullName: string;
   rating: number;

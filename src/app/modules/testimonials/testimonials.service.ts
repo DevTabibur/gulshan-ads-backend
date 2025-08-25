@@ -1,9 +1,8 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { ITestimonial } from './testimonials.interface';
-import { TestimonialModel } from './testimonials.model';
-import { pick } from '../../../shared/pick';
-import { paginationHelper } from '../../helpers/paginationHelper';
+import TestimonialModel from './testimonials.model';
+import paginationHelper from '../../helpers/paginationHelper';
 
 // Create testimonial
 const createTestimonial = async (testimonialData: ITestimonial): Promise<ITestimonial> => {
@@ -51,7 +50,7 @@ const getAllTestimonials = async (filters: any, paginationOptions: any) => {
 
   const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
 
-  const { page, limit, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(paginationOptions);
+  const { page, limit, skip, sortBy, sortOrder } = paginationHelper(paginationOptions);
 
   const sortConditions: { [key: string]: 1 | -1 } = {};
 
@@ -61,8 +60,8 @@ const getAllTestimonials = async (filters: any, paginationOptions: any) => {
 
   const result = await TestimonialModel.find(whereConditions)
     .sort(sortConditions)
-    .skip(skip)
-    .limit(limit);
+    .skip(skip ?? 0)
+    .limit(limit ?? 0);
 
   const total = await TestimonialModel.countDocuments(whereConditions);
 

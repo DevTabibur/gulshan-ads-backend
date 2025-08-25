@@ -37,6 +37,7 @@ const tikTokClientSaysSection_routes_1 = require("../modules/tikTokClientSaysSec
 const subscribeSection_routes_1 = require("../modules/subscribeSection/subscribeSection.routes");
 const siteSettings_routes_1 = require("../modules/siteSettings/siteSettings.routes");
 const blogCategory_routes_1 = require("../modules/blogCategory/blogCategory.routes");
+const blog_routes_1 = require("../modules/blog/blog.routes");
 const router = express_1.default.Router();
 const allRoutes = [
     {
@@ -170,6 +171,10 @@ const allRoutes = [
     {
         path: '/blog-category',
         route: blogCategory_routes_1.BlogCategoryRoute,
+    },
+    {
+        path: '/blog',
+        route: blog_routes_1.BlogRoute,
     },
 ];
 allRoutes.forEach((route) => router.use(route.path, route.route));

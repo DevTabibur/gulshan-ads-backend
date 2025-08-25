@@ -18,56 +18,56 @@ import { IUser } from '../users/users.interface'
 //login user
 const loginExistingUser = async (
     loginData: ILoginUser,
-): Promise<IAdmin | any> => {
-    const { password, ...rest } = loginData
-    const email = loginData.email
-    // Check if the user exists in the database
-    const isAdminExist = await AdminModel.findOne({ email })
+): Promise<any> => {
+    // const { password, ...rest } = loginData
+    // const email = loginData.email
+    // // Check if the user exists in the database
+    // const isAdminExist = await AdminModel.findOne({ email })
 
-    if (!isAdminExist) {
-        const hashedPassword = await bcrypt.hash(password, 12)
-        const res = await AdminModel.create({ ...rest, password: hashedPassword })
+    // if (!isAdminExist) {
+    //     const hashedPassword = await bcrypt.hash(password, 12)
+    //     const res = await AdminModel.create({ ...rest, password: hashedPassword })
 
-        const { _id, email: userEmail } = res
-        const accessToken = jwtHelpers.createToken(
-            { _id: _id, userEmail, role: 'admin' },
-            config.jwt.accessToken as Secret,
-            config.jwt.accessToken_expires_in as string,
-        )
+    //     const { _id, email: userEmail } = res
+    //     const accessToken = jwtHelpers.createToken(
+    //         { _id: _id, userEmail, role: 'admin' },
+    //         config.jwt.accessToken as Secret,
+    //         config.jwt.accessToken_expires_in as string,
+    //     )
 
-        return { accessToken }
-    }
-
-    // If password is already set, compare it
-    const isPasswordMatched = await comparePassword(email, password)
-    if (!isPasswordMatched) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Password is not matched')
-    }
-    const { _id, email: userEmail } = isAdminExist
-    const accessToken = jwtHelpers.createToken(
-        { _id: _id, userEmail, role: 'admin' },
-        config.jwt.accessToken as Secret,
-        config.jwt.accessToken_expires_in as string,
-    )
-
-    return { accessToken }
-
-    // // Generate access token after password verification
-    // const { _id, email: userEmail } = isUserExist
-    // const accessToken = jwtHelpers.createToken(
-    //   { _id: _id, userEmail, role: 'admin' },
-    //   config.jwt.accessToken as Secret,
-    //   config.jwt.accessToken_expires_in as string,
-    // )
-
-    // return { accessToken }
+    //     return { accessToken }
 }
 
-const registerNewUser = async (userData: IUser): Promise<IUserResponse> => {
+// If password is already set, compare it
+// const isPasswordMatched = await comparePassword(email, password)
+// if (!isPasswordMatched) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Password is not matched')
+// }
+// const { _id, email: userEmail } = isAdminExist
+// const accessToken = jwtHelpers.createToken(
+//     { _id: _id, userEmail, role: 'admin' },
+//     config.jwt.accessToken as Secret,
+//     config.jwt.accessToken_expires_in as string,
+// )
+
+// return { accessToken }
+
+// // Generate access token after password verification
+// const { _id, email: userEmail } = isUserExist
+// const accessToken = jwtHelpers.createToken(
+//   { _id: _id, userEmail, role: 'admin' },
+//   config.jwt.accessToken as Secret,
+//   config.jwt.accessToken_expires_in as string,
+// )
+
+// return { accessToken }
+// }
+
+const registerNewUser = async (userData: IUser): Promise<IUserResponse | any> => {
     // const { phoneNo, role, status } = userData
     console.log("user", userData)
 
-    
+
 }
 
 

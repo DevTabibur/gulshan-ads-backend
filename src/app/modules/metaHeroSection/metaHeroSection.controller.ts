@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import catchAsync from '../../../shared/catchAsync';
 import { sendSuccessResponse } from '../../../shared/sendSuccessResponse';
 import httpStatus from 'http-status';
-import { MetaHeroSectionService } from './metaHeroSection.service';
+import MetaHeroSectionService from './metaHeroSection.service';
 
 // Create meta hero section
 const createMetaHeroSection = catchAsync(async (req: Request, res: Response) => {
