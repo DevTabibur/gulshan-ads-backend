@@ -17,8 +17,7 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendSuccessResponse_1 = require("../../../shared/sendSuccessResponse");
 const http_status_1 = __importDefault(require("http-status"));
 const testimonials_service_1 = require("./testimonials.service");
-const pick_1 = require("../../../shared/pick");
-const paginationHelper_1 = require("../../helpers/paginationHelper");
+const pick_1 = __importDefault(require("../../../shared/pick"));
 // Create testimonial
 const createTestimonial = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield testimonials_service_1.TestimonialService.createTestimonial(req.body);
@@ -30,8 +29,9 @@ const createTestimonial = (0, catchAsync_1.default)((req, res) => __awaiter(void
 }));
 // Get all testimonials
 const getAllTestimonials = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const filters = (0, pick_1.pick)(req.query, ['searchTerm', 'fullName', 'companyName', 'rating']);
-    const paginationOptions = (0, pick_1.pick)(req.query, paginationHelper_1.paginationHelper.fields);
+    const filters = (0, pick_1.default)(req.query, ['searchTerm', 'fullName', 'companyName', 'rating']);
+    const paginationOptions = (0, pick_1.default)(req.query, ['page', 'limit', 'sortBy', 'sortOrder'] // explicitly list pagination fields
+    );
     const result = yield testimonials_service_1.TestimonialService.getAllTestimonials(filters, paginationOptions);
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,

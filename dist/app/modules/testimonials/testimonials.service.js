@@ -26,11 +26,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TestimonialService = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
-const testimonials_model_1 = require("./testimonials.model");
-const paginationHelper_1 = require("../../helpers/paginationHelper");
+const testimonials_model_1 = __importDefault(require("./testimonials.model"));
+const paginationHelper_1 = __importDefault(require("../../helpers/paginationHelper"));
 // Create testimonial
 const createTestimonial = (testimonialData) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield testimonials_model_1.TestimonialModel.create(testimonialData);
+    const result = yield testimonials_model_1.default.create(testimonialData);
     return result;
 });
 // Get all testimonials with pagination and filtering
@@ -69,16 +69,16 @@ const getAllTestimonials = (filters, paginationOptions) => __awaiter(void 0, voi
         });
     }
     const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
-    const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(paginationOptions);
+    const { page, limit, skip, sortBy, sortOrder } = (0, paginationHelper_1.default)(paginationOptions);
     const sortConditions = {};
     if (sortBy && sortOrder) {
         sortConditions[sortBy] = sortOrder === 'desc' ? -1 : 1;
     }
-    const result = yield testimonials_model_1.TestimonialModel.find(whereConditions)
+    const result = yield testimonials_model_1.default.find(whereConditions)
         .sort(sortConditions)
-        .skip(skip)
-        .limit(limit);
-    const total = yield testimonials_model_1.TestimonialModel.countDocuments(whereConditions);
+        .skip(skip !== null && skip !== void 0 ? skip : 0)
+        .limit(limit !== null && limit !== void 0 ? limit : 0);
+    const total = yield testimonials_model_1.default.countDocuments(whereConditions);
     return {
         meta: {
             page,
@@ -90,7 +90,7 @@ const getAllTestimonials = (filters, paginationOptions) => __awaiter(void 0, voi
 });
 // Get testimonial by ID
 const getTestimonialById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield testimonials_model_1.TestimonialModel.findById(id);
+    const result = yield testimonials_model_1.default.findById(id);
     if (!result) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Testimonial not found');
     }
@@ -98,7 +98,7 @@ const getTestimonialById = (id) => __awaiter(void 0, void 0, void 0, function* (
 });
 // Update testimonial
 const updateTestimonial = (id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield testimonials_model_1.TestimonialModel.findByIdAndUpdate(id, updateData, {
+    const result = yield testimonials_model_1.default.findByIdAndUpdate(id, updateData, {
         new: true,
         runValidators: true,
     });
@@ -109,7 +109,7 @@ const updateTestimonial = (id, updateData) => __awaiter(void 0, void 0, void 0, 
 });
 // Delete testimonial
 const deleteTestimonial = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield testimonials_model_1.TestimonialModel.findByIdAndDelete(id);
+    const result = yield testimonials_model_1.default.findByIdAndDelete(id);
     if (!result) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Testimonial not found');
     }

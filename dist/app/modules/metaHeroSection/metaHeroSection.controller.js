@@ -16,10 +16,10 @@ exports.MetaHeroSectionController = void 0;
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendSuccessResponse_1 = require("../../../shared/sendSuccessResponse");
 const http_status_1 = __importDefault(require("http-status"));
-const metaHeroSection_service_1 = require("./metaHeroSection.service");
+const metaHeroSection_service_1 = __importDefault(require("./metaHeroSection.service"));
 // Create meta hero section
 const createMetaHeroSection = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield metaHeroSection_service_1.MetaHeroSectionService.createMetaHeroSection(req.body);
+    const result = yield metaHeroSection_service_1.default.createMetaHeroSection(req.body);
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.CREATED,
         message: 'Meta hero section created successfully',
@@ -28,7 +28,7 @@ const createMetaHeroSection = (0, catchAsync_1.default)((req, res) => __awaiter(
 }));
 // Get meta hero section
 const getMetaHeroSection = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield metaHeroSection_service_1.MetaHeroSectionService.getMetaHeroSection();
+    const result = yield metaHeroSection_service_1.default.getMetaHeroSection();
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,
         message: 'Meta hero section retrieved successfully',
@@ -37,7 +37,7 @@ const getMetaHeroSection = (0, catchAsync_1.default)((req, res) => __awaiter(voi
 }));
 // Update meta hero section
 const updateMetaHeroSection = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield metaHeroSection_service_1.MetaHeroSectionService.updateMetaHeroSection(req.body);
+    const result = yield metaHeroSection_service_1.default.updateMetaHeroSection(req.body);
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,
         message: 'Meta hero section updated successfully',
@@ -46,7 +46,7 @@ const updateMetaHeroSection = (0, catchAsync_1.default)((req, res) => __awaiter(
 }));
 // Update CTA buttons only
 const updateCTAButtons = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield metaHeroSection_service_1.MetaHeroSectionService.updateCTAButtons(req.body.ctaButtons);
+    const result = yield metaHeroSection_service_1.default.updateCTAButtons(req.body.ctaButtons);
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,
         message: 'CTA buttons updated successfully',
@@ -55,7 +55,7 @@ const updateCTAButtons = (0, catchAsync_1.default)((req, res) => __awaiter(void 
 }));
 // Update statistics only
 const updateStatistics = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield metaHeroSection_service_1.MetaHeroSectionService.updateStatistics(req.body.statistics);
+    const result = yield metaHeroSection_service_1.default.updateStatistics(req.body.statistics);
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,
         message: 'Statistics updated successfully',
@@ -64,7 +64,7 @@ const updateStatistics = (0, catchAsync_1.default)((req, res) => __awaiter(void 
 }));
 // Delete meta hero section
 const deleteMetaHeroSection = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield metaHeroSection_service_1.MetaHeroSectionService.deleteMetaHeroSection();
+    const result = yield metaHeroSection_service_1.default.deleteMetaHeroSection();
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,
         message: 'Meta hero section deleted successfully',

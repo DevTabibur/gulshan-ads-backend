@@ -1,3 +1,0 @@
-Thu Aug 21 2025 8:24:3 } [Gulshan-Ads] error: Failed to connect database The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
-Thu Aug 21 2025 8:25:1 } [Gulshan-Ads] error: Failed to connect database The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
-Thu Aug 21 2025 8:30:6 } [Gulshan-Ads] error: Failed to connect database The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.

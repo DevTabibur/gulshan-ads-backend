@@ -10,11 +10,11 @@ const winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotat
 const { combine, timestamp, label, printf } = winston_1.format;
 //! Custom Log Format
 const myFormat = printf(({ level, message, label, timestamp }) => {
-    const date = new Date(timestamp);
+    const date = new Date(typeof timestamp === "string" || typeof timestamp === "number" ? timestamp : Date.now());
     const hour = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    return `${date.toDateString()} ${hour}:${minutes}:${seconds} } [${label}] ${level}: ${message}`;
+    return `${date.toDateString()} ${hour}:${minutes}:${seconds} [${label}] ${level}: ${message}`;
 });
 // ! this is successLogger
 const logger = (0, winston_1.createLogger)({

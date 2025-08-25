@@ -8,17 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -31,37 +20,44 @@ const config_1 = __importDefault(require("../../../config"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const users_model_1 = require("../users/users.model");
 const sendEmail_1 = require("../../helpers/sendEmail");
-const comparePassword_1 = require("../../helpers/comparePassword");
 //login user
 const loginExistingUser = (loginData) => __awaiter(void 0, void 0, void 0, function* () {
-    const { password } = loginData, rest = __rest(loginData, ["password"]);
-    const email = loginData.email;
-    // Check if the user exists in the database
-    const isAdminExist = yield AdminModel.findOne({ email });
-    if (!isAdminExist) {
-        const hashedPassword = yield bcryptjs_1.default.hash(password, 12);
-        const res = yield AdminModel.create(Object.assign(Object.assign({}, rest), { password: hashedPassword }));
-        const { _id, email: userEmail } = res;
-        const accessToken = jwtHelpers_1.jwtHelpers.createToken({ _id: _id, userEmail, role: 'admin' }, config_1.default.jwt.accessToken, config_1.default.jwt.accessToken_expires_in);
-        return { accessToken };
-    }
-    // If password is already set, compare it
-    const isPasswordMatched = yield (0, comparePassword_1.comparePassword)(email, password);
-    if (!isPasswordMatched) {
-        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Password is not matched');
-    }
-    const { _id, email: userEmail } = isAdminExist;
-    const accessToken = jwtHelpers_1.jwtHelpers.createToken({ _id: _id, userEmail, role: 'admin' }, config_1.default.jwt.accessToken, config_1.default.jwt.accessToken_expires_in);
-    return { accessToken };
-    // // Generate access token after password verification
-    // const { _id, email: userEmail } = isUserExist
-    // const accessToken = jwtHelpers.createToken(
-    //   { _id: _id, userEmail, role: 'admin' },
-    //   config.jwt.accessToken as Secret,
-    //   config.jwt.accessToken_expires_in as string,
-    // )
-    // return { accessToken }
+    // const { password, ...rest } = loginData
+    // const email = loginData.email
+    // // Check if the user exists in the database
+    // const isAdminExist = await AdminModel.findOne({ email })
+    // if (!isAdminExist) {
+    //     const hashedPassword = await bcrypt.hash(password, 12)
+    //     const res = await AdminModel.create({ ...rest, password: hashedPassword })
+    //     const { _id, email: userEmail } = res
+    //     const accessToken = jwtHelpers.createToken(
+    //         { _id: _id, userEmail, role: 'admin' },
+    //         config.jwt.accessToken as Secret,
+    //         config.jwt.accessToken_expires_in as string,
+    //     )
+    //     return { accessToken }
 });
+// If password is already set, compare it
+// const isPasswordMatched = await comparePassword(email, password)
+// if (!isPasswordMatched) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Password is not matched')
+// }
+// const { _id, email: userEmail } = isAdminExist
+// const accessToken = jwtHelpers.createToken(
+//     { _id: _id, userEmail, role: 'admin' },
+//     config.jwt.accessToken as Secret,
+//     config.jwt.accessToken_expires_in as string,
+// )
+// return { accessToken }
+// // Generate access token after password verification
+// const { _id, email: userEmail } = isUserExist
+// const accessToken = jwtHelpers.createToken(
+//   { _id: _id, userEmail, role: 'admin' },
+//   config.jwt.accessToken as Secret,
+//   config.jwt.accessToken_expires_in as string,
+// )
+// return { accessToken }
+// }
 const registerNewUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     // const { phoneNo, role, status } = userData
     console.log("user", userData);
