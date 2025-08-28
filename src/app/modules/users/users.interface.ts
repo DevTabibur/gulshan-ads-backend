@@ -1,7 +1,9 @@
 export type IUser = {
-  password: string;
-  role: string;
   firstName: string
-  lastName:string
-  email:string
+  lastName: string
+  email: string
+  password: string;
+  avatar?: string
+  role?: string
+  status?: "active" | "inactive"
 };

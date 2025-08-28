@@ -1,6 +1,5 @@
 export enum USER_ROLE_ENUM {
-    CAR_OWNER = 'car_owner',
-    MECHANIC = 'mechanic',
+    USER = 'user',
     ADMIN = 'admin',
   }
   

@@ -19,23 +19,28 @@ import { IUser } from '../users/users.interface'
 const loginExistingUser = async (
     loginData: ILoginUser,
 ): Promise<any> => {
-    // const { password, ...rest } = loginData
-    // const email = loginData.email
-    // // Check if the user exists in the database
-    // const isAdminExist = await AdminModel.findOne({ email })
+    const { email, password } = loginData;
+    const isUserExist = await UserModel.findOne({ email });
+    if (!isUserExist) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User is not found");
+    }
 
-    // if (!isAdminExist) {
-    //     const hashedPassword = await bcrypt.hash(password, 12)
-    //     const res = await AdminModel.create({ ...rest, password: hashedPassword })
+    const isPasswordMatched = await UserModel.isPasswordMatched(
+        password,
+        isUserExist.password,
+    );
 
-    //     const { _id, email: userEmail } = res
-    //     const accessToken = jwtHelpers.createToken(
-    //         { _id: _id, userEmail, role: 'admin' },
-    //         config.jwt.accessToken as Secret,
-    //         config.jwt.accessToken_expires_in as string,
-    //     )
+    if (!isPasswordMatched) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, "Password is incorrect");
+    }
 
-    //     return { accessToken }
+    const accessToken = jwtHelpers.createToken(
+        { userId: isUserExist._id, userEmail: isUserExist.email },
+        config.jwt.accessToken as Secret,
+        config.jwt.accessToken_expires_in as string,
+    );
+
+    return { accessToken };
 }
 
 // If password is already set, compare it
@@ -64,9 +69,31 @@ const loginExistingUser = async (
 // }
 
 const registerNewUser = async (userData: IUser): Promise<IUserResponse | any> => {
-    // const { phoneNo, role, status } = userData
-    console.log("user", userData)
+    const { email } = userData;
 
+    //! Validation for already loggedIn User can not register again
+    const isUserExist = await UserModel.findOne({ email });
+    if (isUserExist) {
+        throw new ApiError(
+            httpStatus.FOUND,
+            "This email is already taken, try another!",
+        );
+    }
+
+    // ! Generating unique user id
+
+    const result = await UserModel.create(userData);
+
+    //! Let's give user secret token
+    const accessToken = jwtHelpers.createToken(
+        { userId: result._id },
+        config.jwt.accessToken as Secret,
+        config.jwt.accessToken_expires_in as string,
+    );
+
+    return {
+        accessToken,
+    };
 
 }
 
@@ -187,6 +214,16 @@ const resetPassword = async (
     // await userModel.updateOne({ email }, { hashedPassword })
 }
 
+
+const getMe = async (userId: string) => {
+    const user = await UserModel.findById(userId).select('-password');
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    }
+    return user;
+};
+
+
 export const AuthService = {
     loginExistingUser,
     registerNewUser,
@@ -194,4 +231,5 @@ export const AuthService = {
     resetPassword,
     forgotPassword,
     logOutUser,
+    getMe
 }

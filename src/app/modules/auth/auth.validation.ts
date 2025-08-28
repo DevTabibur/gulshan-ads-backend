@@ -8,24 +8,25 @@ const adminLoginZodSchema = z.object({
     password: z.string({
       required_error: "password is required",
     }),
-    role: z.enum(["admin", "ADMIN", "Admin"], {
-      required_error: "Role is required",
-      invalid_type_error: "Role must be either 'admin', 'ADMIN', or 'Admin'",
-    }),
+    
   }),
 });
 
 const registerUserZodSchema = z.object({
   body: z.object({
-    phoneNo: z.string({
-      required_error: "Validate Phone No is required",
+    firstName: z.string({
+      required_error: "First Name is required",
     }),
-    role: z.string({
-      required_error: "Role is required",
+    lastName: z.string({
+      required_error: "Last Name is required",
     }),
-    status: z.string({
-      required_error: "Status is required",
+    email: z.string({
+      required_error: "Valid Email  is required",
     }),
+    password: z.string({
+      required_error: "Password  is required",
+    }),
+
   }),
 });
 

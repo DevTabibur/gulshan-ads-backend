@@ -66,7 +66,7 @@ router.post(
 )
 
 /**
- * @api {post} /auth/log-out/:adminId Log Out User
+ * @api {post} /auth/logout Log Out User
  * @apiName LogOutUser
  * @apiGroup Auth
  *
@@ -76,9 +76,8 @@ router.post(
  * @apiError {Object} error Error message
  */
 router.post(
-    '/log-out/:adminId',
-    zodValidateRequest(AuthValidation.logOutSchema),
-    authGuard(USER_ROLE_ENUM.ADMIN),
+    '/logout',
+    authGuard(),
     AuthController.logOutUser,
 )
 
@@ -111,5 +110,8 @@ router.post(
     // zodValidateRequest(AuthValidation.resendPasswordSchema),
     AuthController.resetPassword,
 )
+
+
+router.get("/get-me", authGuard(), AuthController.getMe)
 
 export const AuthRoute = router

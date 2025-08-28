@@ -5,6 +5,8 @@ import { sendSuccessResponse } from '../../../shared/sendSuccessResponse'
 import httpStatus from 'http-status'
 import { AuthService } from './auth.service'
 import { IRefreshTokenResponse } from './auth.interface'
+import config from '../../../config'
+import ApiError from '../../../errors/ApiError'
 
 // login user
 const loginExistingUser = catchAsync(async (req: Request, res: Response) => {
@@ -30,12 +32,21 @@ const loginExistingUser = catchAsync(async (req: Request, res: Response) => {
 })
 
 const registerNewUser = catchAsync(async (req: Request, res: Response) => {
-  const result = await AuthService.registerNewUser(req.body)
+  const { accessToken, ...rest } = await AuthService.registerNewUser(req.body);
+
+  const cookieOptions = {
+    httpOnly: true,
+    // secure: false,
+    secure: config?.env === "production",
+  };
+
+  res.cookie("refreshToken", accessToken, cookieOptions);
+
   sendSuccessResponse(res, {
     statusCode: httpStatus.OK,
-    message: 'Please Complete OTP Verification',
-    data: result,
-  })
+    message: "Registered successfully",
+    data: { accessToken, ...rest },
+  });
 })
 
 // const verifyOTP = catchAsync(async (req: Request, res: Response) => {
@@ -76,9 +87,15 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
 
 // logout
 const logOutUser = catchAsync(async (req: Request, res: Response) => {
-  const { adminId } = req.params
+  const userId =
+    (req.user && ((req.user as any).userId || (req.user as any).id || (req.user as any)._id)) ||
+    null;
 
-  const result = await AuthService.logOutUser(adminId)
+  if (!userId) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "User not authenticated or token not decoded")
+  }
+
+  const result = await AuthService.logOutUser(userId)
   sendSuccessResponse(res, {
     statusCode: httpStatus.OK,
     message: 'Log out successful',
@@ -113,6 +130,27 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const getMe = catchAsync(async (req: Request, res: Response) => {
+
+  const userId =
+    (req.user && ((req.user as any).userId || (req.user as any).id || (req.user as any)._id)) ||
+    null;
+
+  if (!userId) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "User not authenticated or token not decoded")
+  }
+
+  const userData = await AuthService.getMe(userId);
+
+  sendSuccessResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    data: userData,
+    message: 'User data fetched successfully',
+  });
+});
+
+
 export const AuthController = {
   loginExistingUser,
   registerNewUser,
@@ -120,4 +158,5 @@ export const AuthController = {
   logOutUser,
   forgotPassword,
   resetPassword,
+  getMe
 }

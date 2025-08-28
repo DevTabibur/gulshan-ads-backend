@@ -1,0 +1,45 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\.fd0752c627cf01a7764ec64812b46d827f7099b9-audit.json",
+    "files": [
+        {
+            "date": 1756187919114,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\gulshan-ads-2025-26-08-11-success.log",
+            "hash": "db156d427b5f3a0da86b1649037b5d2cc3a70ffb1ed1362b3c838d3c638ef40c"
+        },
+        {
+            "date": 1756207226661,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\gulshan-ads-2025-26-08-17-success.log",
+            "hash": "4226c9c37403541f20cbe57b550b00a5a81b33228220d04121decc0d44924ea9"
+        },
+        {
+            "date": 1756256839485,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\gulshan-ads-2025-27-08-07-success.log",
+            "hash": "7cf734ee0a98ce9494b878e8c34fd217a86cfdd8eef18a7975ce96289a19df20"
+        },
+        {
+            "date": 1756270478915,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\gulshan-ads-2025-27-08-10-success.log",
+            "hash": "74521c21b1857be888a2c0e14186a6579bb376db932bbbcf010ddf90ea54f4b8"
+        },
+        {
+            "date": 1756270879633,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\gulshan-ads-2025-27-08-11-success.log",
+            "hash": "f5ae74cf8e527070e995262cb140b5915b50876aef1379a3b5e50ae4b20e8c7c"
+        },
+        {
+            "date": 1756341527966,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\gulshan-ads-2025-28-08-06-success.log",
+            "hash": "1fc8fd52c37d965a3c515acfb30ae522602dae04d0ce9d68932e1bdca6a83b69"
+        },
+        {
+            "date": 1756345310615,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\successes\\gulshan-ads-2025-28-08-07-success.log",
+            "hash": "65679332b8520301a11dae0805e56c7112a7207465af0cd54a6789fa965e4263"
+        }
+    ],
+    "hashType": "sha256"
+}
