@@ -32,7 +32,6 @@ exports.default = {
     nodemailer_app_password: process.env.NODEMAILER_APP_PASS,
     allowed_origin_dev: process.env.ALLOWED_ORIGIN_DEV,
     mapbox_access_token: process.env.MAPBOX_ACCESS_TOKEN,
-    database_string: process.env.DATABASE_STRING,
     bcrypt_salt_round: process.env.BCRYPT_SALT_ROUND,
     jwt: {
         accessToken: process.env.ACCESS_TOKEN,
