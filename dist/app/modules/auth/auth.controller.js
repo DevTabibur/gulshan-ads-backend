@@ -8,6 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -17,6 +28,8 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendSuccessResponse_1 = require("../../../shared/sendSuccessResponse");
 const http_status_1 = __importDefault(require("http-status"));
 const auth_service_1 = require("./auth.service");
+const config_1 = __importDefault(require("../../../config"));
+const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 // login user
 const loginExistingUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield auth_service_1.AuthService.loginExistingUser(req.body);
@@ -35,11 +48,17 @@ const loginExistingUser = (0, catchAsync_1.default)((req, res) => __awaiter(void
     });
 }));
 const registerNewUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield auth_service_1.AuthService.registerNewUser(req.body);
+    const _a = yield auth_service_1.AuthService.registerNewUser(req.body), { accessToken } = _a, rest = __rest(_a, ["accessToken"]);
+    const cookieOptions = {
+        httpOnly: true,
+        // secure: false,
+        secure: (config_1.default === null || config_1.default === void 0 ? void 0 : config_1.default.env) === "production",
+    };
+    res.cookie("refreshToken", accessToken, cookieOptions);
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,
-        message: 'Please Complete OTP Verification',
-        data: result,
+        message: "Registered successfully",
+        data: Object.assign({ accessToken }, rest),
     });
 }));
 // const verifyOTP = catchAsync(async (req: Request, res: Response) => {
@@ -76,8 +95,12 @@ const refreshToken = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
 }));
 // logout
 const logOutUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { adminId } = req.params;
-    const result = yield auth_service_1.AuthService.logOutUser(adminId);
+    const userId = (req.user && (req.user.userId || req.user.id || req.user._id)) ||
+        null;
+    if (!userId) {
+        throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "User not authenticated or token not decoded");
+    }
+    const result = yield auth_service_1.AuthService.logOutUser(userId);
     (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
         statusCode: http_status_1.default.OK,
         message: 'Log out successful',
@@ -107,6 +130,20 @@ const resetPassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         message: 'Account recovered',
     });
 }));
+const getMe = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = (req.user && (req.user.userId || req.user.id || req.user._id)) ||
+        null;
+    if (!userId) {
+        throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "User not authenticated or token not decoded");
+    }
+    const userData = yield auth_service_1.AuthService.getMe(userId);
+    (0, sendSuccessResponse_1.sendSuccessResponse)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        data: userData,
+        message: 'User data fetched successfully',
+    });
+}));
 exports.AuthController = {
     loginExistingUser,
     registerNewUser,
@@ -114,4 +151,5 @@ exports.AuthController = {
     logOutUser,
     forgotPassword,
     resetPassword,
+    getMe
 };

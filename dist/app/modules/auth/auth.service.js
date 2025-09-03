@@ -22,20 +22,17 @@ const users_model_1 = require("../users/users.model");
 const sendEmail_1 = require("../../helpers/sendEmail");
 //login user
 const loginExistingUser = (loginData) => __awaiter(void 0, void 0, void 0, function* () {
-    // const { password, ...rest } = loginData
-    // const email = loginData.email
-    // // Check if the user exists in the database
-    // const isAdminExist = await AdminModel.findOne({ email })
-    // if (!isAdminExist) {
-    //     const hashedPassword = await bcrypt.hash(password, 12)
-    //     const res = await AdminModel.create({ ...rest, password: hashedPassword })
-    //     const { _id, email: userEmail } = res
-    //     const accessToken = jwtHelpers.createToken(
-    //         { _id: _id, userEmail, role: 'admin' },
-    //         config.jwt.accessToken as Secret,
-    //         config.jwt.accessToken_expires_in as string,
-    //     )
-    //     return { accessToken }
+    const { email, password } = loginData;
+    const isUserExist = yield users_model_1.UserModel.findOne({ email });
+    if (!isUserExist) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "User is not found");
+    }
+    const isPasswordMatched = yield users_model_1.UserModel.isPasswordMatched(password, isUserExist.password);
+    if (!isPasswordMatched) {
+        throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "Password is incorrect");
+    }
+    const accessToken = jwtHelpers_1.jwtHelpers.createToken({ userId: isUserExist._id, userEmail: isUserExist.email }, config_1.default.jwt.accessToken, config_1.default.jwt.accessToken_expires_in);
+    return { accessToken };
 });
 // If password is already set, compare it
 // const isPasswordMatched = await comparePassword(email, password)
@@ -59,8 +56,19 @@ const loginExistingUser = (loginData) => __awaiter(void 0, void 0, void 0, funct
 // return { accessToken }
 // }
 const registerNewUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
-    // const { phoneNo, role, status } = userData
-    console.log("user", userData);
+    const { email } = userData;
+    //! Validation for already loggedIn User can not register again
+    const isUserExist = yield users_model_1.UserModel.findOne({ email });
+    if (isUserExist) {
+        throw new ApiError_1.default(http_status_1.default.FOUND, "This email is already taken, try another!");
+    }
+    // ! Generating unique user id
+    const result = yield users_model_1.UserModel.create(userData);
+    //! Let's give user secret token
+    const accessToken = jwtHelpers_1.jwtHelpers.createToken({ userId: result._id }, config_1.default.jwt.accessToken, config_1.default.jwt.accessToken_expires_in);
+    return {
+        accessToken,
+    };
 });
 const refreshTokenService = (refreshToken) => __awaiter(void 0, void 0, void 0, function* () {
     let verifiedToken = null;
@@ -124,6 +132,13 @@ const resetPassword = (payload, token) => __awaiter(void 0, void 0, void 0, func
     });
     // await userModel.updateOne({ email }, { hashedPassword })
 });
+const getMe = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield users_model_1.UserModel.findById(userId).select('-password');
+    if (!user) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User not found');
+    }
+    return user;
+});
 exports.AuthService = {
     loginExistingUser,
     registerNewUser,
@@ -131,4 +146,5 @@ exports.AuthService = {
     resetPassword,
     forgotPassword,
     logOutUser,
+    getMe
 };

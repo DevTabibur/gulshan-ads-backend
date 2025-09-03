@@ -9,7 +9,6 @@ const auth_controller_1 = require("./auth.controller");
 const zodValidateRequest_1 = __importDefault(require("../../middlewares/zodValidateRequest"));
 const auth_validation_1 = require("./auth.validation");
 const authGuard_1 = __importDefault(require("../../middlewares/authGuard"));
-const users_constant_1 = require("../users/users.constant");
 const router = (0, express_1.Router)();
 /**
  * @api {post} /auth/login Login Existing Admin  ==> This API is only for WEB for ADMIN
@@ -53,7 +52,7 @@ router.post('/register', (0, zodValidateRequest_1.default)(auth_validation_1.Aut
  */
 router.post('/refresh-token', (0, zodValidateRequest_1.default)(auth_validation_1.AuthValidation.refreshTokenZodSchema), auth_controller_1.AuthController.refreshToken);
 /**
- * @api {post} /auth/log-out/:adminId Log Out User
+ * @api {post} /auth/logout Log Out User
  * @apiName LogOutUser
  * @apiGroup Auth
  *
@@ -62,7 +61,7 @@ router.post('/refresh-token', (0, zodValidateRequest_1.default)(auth_validation_
  * @apiSuccess {String} message Logout success message
  * @apiError {Object} error Error message
  */
-router.post('/log-out/:adminId', (0, zodValidateRequest_1.default)(auth_validation_1.AuthValidation.logOutSchema), (0, authGuard_1.default)(users_constant_1.USER_ROLE_ENUM.ADMIN), auth_controller_1.AuthController.logOutUser);
+router.post('/logout', (0, authGuard_1.default)(), auth_controller_1.AuthController.logOutUser);
 /**
  * @api {post} /auth/forgot-password Forgot Password
  * @apiName ForgotPassword
@@ -89,4 +88,5 @@ router.post('/forgot-password', auth_controller_1.AuthController.forgotPassword)
 router.post('/reset-password', 
 // zodValidateRequest(AuthValidation.resendPasswordSchema),
 auth_controller_1.AuthController.resetPassword);
+router.get("/get-me", (0, authGuard_1.default)(), auth_controller_1.AuthController.getMe);
 exports.AuthRoute = router;

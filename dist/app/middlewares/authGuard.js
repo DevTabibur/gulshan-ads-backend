@@ -16,19 +16,49 @@ const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const config_1 = __importDefault(require("../../config"));
 const jwtHelpers_1 = require("../helpers/jwtHelpers");
+// const authGuard =
+//   (...requiredRoles: string[]) =>
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       //get authorization token
+//       const token = req.headers.authorization;
+//       if (!token) {
+//         throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized");
+//       }
+//       // verify token
+//       let verifiedUser = null;
+//       verifiedUser = jwtHelpers.verifyToken(
+//         token,
+//         config.jwt.accessToken as Secret,
+//       );
+//       req.user = verifiedUser; // role  , userid // ! this is giving error => the solution is in interfaces > index.d.ts file
+//       // role diye guard korar jnno
+//       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
+//         throw new ApiError(httpStatus.FORBIDDEN, "Forbidden");
+//       }
+//       next();
+//     } catch (error) {
+//       next(error);
+//     }
+//   };
+// export default authGuard;
 const authGuard = (...requiredRoles) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //get authorization token
-        const token = req.headers.authorization;
-        if (!token) {
+        const header = req.headers.authorization;
+        if (!header) {
             throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "You are not authorized");
         }
-        // verify token
-        let verifiedUser = null;
-        verifiedUser = jwtHelpers_1.jwtHelpers.verifyToken(token, config_1.default.jwt.accessToken);
-        req.user = verifiedUser; // role  , userid // ! this is giving error => the solution is in interfaces > index.d.ts file
-        // role diye guard korar jnno
-        if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
+        // Bearer টোকেন হলে split, নাহলে raw টোকেন ব্যবহার
+        const token = header.startsWith("Bearer ")
+            ? header.split(" ")[1]
+            : header;
+        const verifiedUser = jwtHelpers_1.jwtHelpers.verifyToken(token, config_1.default.jwt.accessToken);
+        // ডিবাগ দেখতে চাইলে:
+        // console.log("decoded user =>", verifiedUser);
+        // টাইপড এক্সটেনশন থাকলে ভালো, না থাকলে any/unknown
+        req.user = verifiedUser;
+        if (requiredRoles.length &&
+            (!(verifiedUser === null || verifiedUser === void 0 ? void 0 : verifiedUser.role) || !requiredRoles.includes(verifiedUser.role))) {
             throw new ApiError_1.default(http_status_1.default.FORBIDDEN, "Forbidden");
         }
         next();

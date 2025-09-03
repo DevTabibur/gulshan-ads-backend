@@ -3,8 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MECHANIC_SEARCH__FIELDS = exports.MECHANIC_FILTER_FIELDS = exports.CAR_OWNER_SEARCH__FIELDS = exports.CAR_OWNER_FILTER_FIELDS = exports.USER_FILTER_FIELDS = exports.USER_SEARCH_FIELDS = exports.USER_ROLE_ARRAY = exports.USER_STATUS = exports.USER_ROLE_ENUM = void 0;
 var USER_ROLE_ENUM;
 (function (USER_ROLE_ENUM) {
-    USER_ROLE_ENUM["CAR_OWNER"] = "car_owner";
-    USER_ROLE_ENUM["MECHANIC"] = "mechanic";
+    USER_ROLE_ENUM["USER"] = "user";
     USER_ROLE_ENUM["ADMIN"] = "admin";
 })(USER_ROLE_ENUM || (exports.USER_ROLE_ENUM = USER_ROLE_ENUM = {}));
 var USER_STATUS;
