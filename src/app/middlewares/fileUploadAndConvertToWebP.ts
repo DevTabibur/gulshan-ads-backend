@@ -88,6 +88,7 @@ const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
     { name: 'frontImage', maxCount: 1 },
     { name: 'backImage', maxCount: 1 },
     { name: 'blogFeaturedImage', maxCount: 1 },
+    { name: 'imageUrl', maxCount: 1 },
   ])
 
   upload(req, res, async error => {
@@ -173,9 +174,6 @@ const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
       }
     }
 
-
-
-
     // ! blogFeaturedImage  to WebP
     if (uploadedFiles?.blogFeaturedImage) {
       const blogFeaturedImage = uploadedFiles?.blogFeaturedImage[0]
@@ -201,6 +199,36 @@ const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
         // Remove original blogCover
         setTimeout(() => {
           deleteFileWithRetry(blogFeaturedImagePath, 3, 3000)
+        }, 5000)
+      }
+    }
+
+
+    // ! imageUrl  to WebP
+    if (uploadedFiles?.imageUrl) {
+      const imageUrlImage = uploadedFiles?.imageUrl[0]
+      const imageUrlImagePath = imageUrlImage.path
+      const imageUrlImageExtension = path.extname(imageUrlImagePath).toLowerCase()
+      const restImage4WebPPath = path.join(
+        path.dirname(imageUrlImagePath),
+        `${path.basename(imageUrlImagePath, imageUrlImageExtension)}.webp`,
+      )
+
+      // Check if the blogCover is already in WebP format
+      if (imageUrlImageExtension === '.webp') {
+        // Skip conversion, use the original WebP image
+        fs.rename(imageUrlImagePath, restImage4WebPPath, error => {
+          if (error) {
+            console.error('Failed to rename the file:', error)
+          }
+        })
+      } else {
+        // Convert restImage1 to WebP
+        await sharp(imageUrlImagePath).toFormat('webp').toFile(restImage4WebPPath)
+
+        // Remove original blogCover
+        setTimeout(() => {
+          deleteFileWithRetry(imageUrlImagePath, 3, 3000)
         }, 5000)
       }
     }

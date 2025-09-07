@@ -5,7 +5,7 @@ type TestimonialModel = Model<ITestimonial, object>;
 
 const testimonialSchema = new Schema(
   {
-    authorUrl: {
+    authorImage: {
       type: String,
       required: true,
     },

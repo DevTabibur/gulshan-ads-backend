@@ -5,7 +5,7 @@ import TestimonialModel from './testimonials.model';
 import paginationHelper from '../../helpers/paginationHelper';
 
 // Create testimonial
-const createTestimonial = async (testimonialData: ITestimonial): Promise<ITestimonial> => {
+const createTestimonial = async (testimonialData: ITestimonial,): Promise<ITestimonial> => {
   const result = await TestimonialModel.create(testimonialData);
   return result;
 };

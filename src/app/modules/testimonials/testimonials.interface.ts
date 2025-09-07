@@ -1,8 +1,5 @@
 export interface ITestimonial {
-  _id: any;
-  updatedAt: any;
-  createdAt: any;
-  authorUrl: string;
+  authorImage: string;
   fullName: string;
   rating: number;
   companyName: string;

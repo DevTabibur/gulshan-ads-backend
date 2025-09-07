@@ -69,6 +69,11 @@
             "date": 1757163906444,
             "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-06-09-19-error.log",
             "hash": "06897907a25700f1652975862cb65b456960d703d78c2de29d144cfe5b181a35"
+        },
+        {
+            "date": 1757207370486,
+            "name": "E:\\PROJECTS\\Optichore ltd\\Gulshan-Ads\\Ads-backend\\logs\\winston\\errors\\gulshan-ads-2025-07-09-07-error.log",
+            "hash": "e7812482b496351b07920072211eff3e3fb6880e0f890948743e9110954bb6d4"
         }
     ],
     "hashType": "sha256"

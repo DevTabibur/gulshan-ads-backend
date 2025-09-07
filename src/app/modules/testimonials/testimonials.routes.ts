@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { TestimonialController } from './testimonials.controller';
 import zodValidateRequest from '../../middlewares/zodValidateRequest';
 import { TestimonialValidation } from './testimonials.validation';
+import authGuard from '../../middlewares/authGuard';
+import uploadMiddleware from '../../middlewares/fileUploadAndConvertToWebP';
 
 const router = Router();
 
@@ -23,7 +25,8 @@ const router = Router();
  */
 router.post(
   '/',
-  zodValidateRequest(TestimonialValidation.createTestimonialZodSchema),
+  authGuard(),
+  uploadMiddleware,
   TestimonialController.createTestimonial,
 );
 

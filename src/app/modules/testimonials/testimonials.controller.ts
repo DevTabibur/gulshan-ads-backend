@@ -5,10 +5,29 @@ import httpStatus from 'http-status';
 import { TestimonialService } from './testimonials.service';
 import pick from '../../../shared/pick';
 import paginationHelper from '../../helpers/paginationHelper';
+import convertImageToWebP from '../../helpers/convertImageToWebP';
+import { ITestimonial } from './testimonials.interface';
 
 // Create testimonial
 const createTestimonial = catchAsync(async (req: Request, res: Response) => {
-  const result = await TestimonialService.createTestimonial(req.body);
+  const files = req.files as any;
+
+  let authorImage;
+  if (files && files.imageUrl && Array.isArray(files.imageUrl) && files.imageUrl.length > 0) {
+    authorImage = files.imageUrl.map(
+      (file: any) => convertImageToWebP(file.filename)
+    );
+  }
+
+  const data: ITestimonial = {
+    authorImage: authorImage[0],
+    fullName: req.body.fullName,
+    description: req.body.description,
+    rating: req.body.rating,
+    companyName: req.body.companyName,
+  };
+
+  const result = await TestimonialService.createTestimonial(data);
   sendSuccessResponse(res, {
     statusCode: httpStatus.CREATED,
     message: 'Testimonial created successfully',
