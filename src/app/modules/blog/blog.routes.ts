@@ -83,7 +83,7 @@ router.get('/category/:categoryId', BlogController.getBlogsByCategory);
  * @apiError {Object} error Error message
  */
 router.get('/slug/:slug', BlogController.getBlogBySlug);
-
+ 
 /**
  * @api {get} /blog/:id Get Blog by ID
  * @apiName GetBlogById

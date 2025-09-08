@@ -27,6 +27,11 @@ const testimonialSchema = new Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["published", "pending", "archived"],
+      default: "published",
+    },
   },
   {
     timestamps: true,

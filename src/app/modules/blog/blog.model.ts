@@ -10,11 +10,7 @@ const blogSchema = new Schema(
       required: true,
       trim: true,
     },
-    excerpt: {
-      type: String,
-      trim: true,
-      required: true
-    },
+    
     content: {
       type: String,
       required: true,

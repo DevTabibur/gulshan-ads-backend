@@ -20,7 +20,6 @@ const createBlog = async (blogData: IBlog, blogFeaturedImage: Express.Multer.Fil
   const blog = {
     title: blogData?.title,
     slug: blogData?.slug,
-    excerpt: blogData?.excerpt,
     content: blogData?.content,
     status: blogData?.status,
     category: blogData?.category,

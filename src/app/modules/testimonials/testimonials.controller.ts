@@ -25,6 +25,7 @@ const createTestimonial = catchAsync(async (req: Request, res: Response) => {
     description: req.body.description,
     rating: req.body.rating,
     companyName: req.body.companyName,
+    status: "published"
   };
 
   const result = await TestimonialService.createTestimonial(data);
@@ -68,7 +69,25 @@ const getTestimonialById = catchAsync(async (req: Request, res: Response) => {
 // Update testimonial
 const updateTestimonial = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await TestimonialService.updateTestimonial(id, req.body);
+
+  const files = req.files as any;
+
+  let authorImage;
+  if (files && files.imageUrl && Array.isArray(files.imageUrl) && files.imageUrl.length > 0) {
+    authorImage = files.imageUrl.map(
+      (file: any) => convertImageToWebP(file.filename)
+    );
+  }
+
+  const data: ITestimonial = {
+    authorImage: authorImage[0],
+    fullName: req.body.fullName,
+    description: req.body.description,
+    rating: req.body.rating,
+    companyName: req.body.companyName,
+    status: "published"
+  };
+  const result = await TestimonialService.updateTestimonial(id, data);
 
   sendSuccessResponse(res, {
     statusCode: httpStatus.OK,

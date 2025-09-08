@@ -89,7 +89,8 @@ router.get(
  */
 router.patch(
   '/:id',
-  zodValidateRequest(TestimonialValidation.updateTestimonialZodSchema),
+  authGuard(),
+  uploadMiddleware,
   TestimonialController.updateTestimonial,
 );
 
@@ -107,7 +108,7 @@ router.patch(
  */
 router.delete(
   '/:id',
-  zodValidateRequest(TestimonialValidation.deleteTestimonialZodSchema),
+  authGuard(),
   TestimonialController.deleteTestimonial,
 );
 

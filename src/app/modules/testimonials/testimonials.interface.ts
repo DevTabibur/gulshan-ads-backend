@@ -4,6 +4,7 @@ export interface ITestimonial {
   rating: number;
   companyName: string;
   description: string;
+  status:"published" | "pending" | "archived";
 }
 
 export interface ITestimonialResponse {

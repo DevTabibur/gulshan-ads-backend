@@ -1,6 +1,5 @@
 export interface IBlog {
   title: string;
-  excerpt?: string;
   content: string;
   status: 'draft' | 'published';
   category: string; // Reference to BlogCategory ID
