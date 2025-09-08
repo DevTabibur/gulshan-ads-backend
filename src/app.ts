@@ -12,12 +12,15 @@ const app: Application = express();
 // Enable CORS
 app.use(
   cors({
-    origin: true, // Allow all origins
+    origin: [
+      "https://biggaponbd.com", // production frontend
+      "http://localhost:3000",  // local frontend (development)
+    ],
     credentials: true, // for automatically storing jwt with cookie
     methods: ["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
-); // for cookie (refresh token)
+);
 
 app.use(express.json({ limit: "50mb" })); // to handle too many request entity
 app.use(express.urlencoded({ extended: true }));
