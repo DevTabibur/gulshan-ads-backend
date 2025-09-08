@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 import { errorlogger, logger } from "../../shared/logger";
 import config from "../../config";
 
-const URI: string = config.main_db_url as string || `mongodb+srv://tobiburrohman2:8glzMKr2FeRk19ED@cluster0.styb5.mongodb.net/gulshan-ads?retryWrites=true&w=majority&appName=Cluster0`;
-console.log("URI", URI)
+const URI: string = config.main_db_url as string
 const dbConnect = async (): Promise<void> => {
   try {
     if (!URI) {
@@ -11,7 +10,7 @@ const dbConnect = async (): Promise<void> => {
     }
     // await mongoose.connect(URI as string);
     await mongoose.connect(URI, {
-      maxPoolSize:10,
+      maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds if MongoDB is unreachable
       socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
       connectTimeoutMS: 10000, // Timeout for initial connection
