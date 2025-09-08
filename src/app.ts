@@ -12,7 +12,7 @@ const app: Application = express();
 // Enable CORS
 app.use(
   cors({
-    origin: "http://localhost:3000", // for automatically storing jwt with cookie
+    origin: true, // Allow all origins
     credentials: true, // for automatically storing jwt with cookie
     methods: ["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
