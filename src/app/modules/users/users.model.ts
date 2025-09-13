@@ -55,6 +55,10 @@ const userSchema = new Schema<IUser>(
     companyName: {
       type: String,
       required: true
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
     }
   },
   {

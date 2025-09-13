@@ -5,6 +5,7 @@ export type IUser = {
   avatar?: string
   role?: string
   status?: "active" | "inactive"
-  whatsApp:string
-  companyName:string
+  whatsApp: string
+  companyName: string
+  isVerified?: boolean
 };
