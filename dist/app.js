@@ -13,11 +13,14 @@ const dbConnect_1 = __importDefault(require("./app/utils/dbConnect"));
 const app = (0, express_1.default)();
 // Enable CORS
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3000", // for automatically storing jwt with cookie
+    origin: [
+        "https://biggaponbd.com", // production frontend
+        "http://localhost:3000", // local frontend (development)
+    ],
     credentials: true, // for automatically storing jwt with cookie
     methods: ["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
-})); // for cookie (refresh token)
+}));
 app.use(express_1.default.json({ limit: "50mb" })); // to handle too many request entity
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());

@@ -23,6 +23,12 @@ const registerUserZodSchema = zod_1.z.object({
         email: zod_1.z.string({
             required_error: "Valid Email  is required",
         }),
+        companyName: zod_1.z.string({
+            required_error: "Company / Page Name  is required",
+        }),
+        whatsApp: zod_1.z.string({
+            required_error: "WhatsApp Number  is required",
+        }),
         password: zod_1.z.string({
             required_error: "Password  is required",
         }),

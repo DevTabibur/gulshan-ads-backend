@@ -15,12 +15,7 @@ type UserModel = Model<IUser> & {
 
 const userSchema = new Schema<IUser>(
   {
-    firstName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    lastName: {
+    fullName: {
       type: String,
       required: true,
       trim: true,

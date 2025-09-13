@@ -8,18 +8,16 @@ const adminLoginZodSchema = z.object({
     password: z.string({
       required_error: "password is required",
     }),
-    
+
   }),
 });
 
 const registerUserZodSchema = z.object({
   body: z.object({
-    firstName: z.string({
-      required_error: "First Name is required",
+    fullName: z.string({
+      required_error: "Full Name is required",
     }),
-    lastName: z.string({
-      required_error: "Last Name is required",
-    }),
+
     email: z.string({
       required_error: "Valid Email  is required",
     }),
@@ -29,7 +27,7 @@ const registerUserZodSchema = z.object({
     whatsApp: z.string({
       required_error: "WhatsApp Number  is required",
     }),
-    
+
     password: z.string({
       required_error: "Password  is required",
     }),

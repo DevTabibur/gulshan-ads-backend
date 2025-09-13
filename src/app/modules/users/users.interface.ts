@@ -1,6 +1,5 @@
 export type IUser = {
-  firstName: string
-  lastName: string
+  fullName: string
   email: string
   password: string;
   avatar?: string
