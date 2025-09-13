@@ -3,7 +3,7 @@ import catchAsync from '../../../shared/catchAsync';
 import { sendSuccessResponse } from '../../../shared/sendSuccessResponse';
 import httpStatus from 'http-status';
 import { BlogService } from './blog.service';
-
+ 
 // Create blog
 const createBlog = catchAsync(async (req: Request, res: Response) => {
   const files = req.files as { [fieldname: string]: Express.Multer.File[] } | Express.Multer.File[] | undefined;

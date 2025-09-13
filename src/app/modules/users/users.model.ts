@@ -45,6 +45,21 @@ const userSchema = new Schema<IUser>(
     status: {
       type: String,
       default: "active"
+    },
+    whatsApp: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function (v: string) {
+          // Accepts numbers with optional +, 10-15 digits
+          return /^\+?\d{10,15}$/.test(v);
+        },
+        message: (props: any) => `${props.value} is not a valid WhatsApp number!`
+      }
+    },
+    companyName: {
+      type: String,
+      required: true
     }
   },
   {
